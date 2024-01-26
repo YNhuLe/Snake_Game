@@ -5,10 +5,13 @@ FONT = ("Courier", 24, "normal")
 
 
 class ScoreBoard(Turtle):
+
     def __init__(self):
+
         super().__init__()
         self.score = 0
-        self.high_score = 0
+        with open("data.txt", mode='r') as data:
+            self.high_score = int(data.read())
         self.color("white")
         self.penup()
         self.goto(0, 250)
@@ -29,5 +32,8 @@ class ScoreBoard(Turtle):
         """set the high score to the highest score of all time, reset the score to 0 everytime the snake die"""
         if self.score > self.high_score:
             self.high_score = self.score
+            with open("data.txt", mode='w') as data:
+                data.write(f"{self.high_score}")
+
         self.score = 0
         self.update_scoreboard()
